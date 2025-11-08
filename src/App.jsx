@@ -1,17 +1,12 @@
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { theme } from './styles/theme';
+import MainPage from './pages/mainPage';
 
-import './App.css'
-import HomeSection from './components/HomeSection'
-import Navbar from './components/Navbar'
-
-function App() {
-  
-
+export default function App() {
   return (
-    <>
-<Navbar  />
-<HomeSection/>
-    </>
-  )
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <MainPage />
+    </ThemeProvider>
+  );
 }
-
-export default App

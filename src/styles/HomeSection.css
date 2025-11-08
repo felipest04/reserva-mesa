@@ -1,0 +1,90 @@
+.home-container {
+  position: relative; /* Necessário para o ::before funfa por que? por que deus quis assim */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  max-width: 100%;
+  text-align: center;
+  color: #fff;
+  background: url('/assets/images/bg-restaurante.jpg') center/cover no-repeat; /*  caminho da imagem */
+  overflow: hidden;
+}
+
+
+.home-container::before {
+  content: ""; /*aqui é o fundo ve se não mexe se não quebra essa porra*/
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.301);
+  z-index: 0;
+}
+
+.home-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  padding: 0 1rem;
+}
+
+.home-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.home-subtitle {
+  margin-bottom: 2rem !important;
+  color: #f1f1f1;
+  font-size: 1.2rem;
+}
+
+/* Área de busca */
+.search-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  padding: 1.5rem;
+  border-radius: 16px;
+  margin: 0 auto;
+}
+
+.search-field {
+  background-color: #fff !important;
+  border-radius: 8px !important;
+  flex: 1 1 150px;
+  min-width: 150px;
+}
+
+.search-button {
+  background-color: #d32f2f !important;
+  color: #fff !important;
+  font-weight: bold;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+}
+
+.field-wrapper {
+  position: relative;
+  flex: 1 1 150px;
+  min-width: 150px;
+}
+
+.field-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  pointer-events: none; /* permite clicar no seletor nativo por baixo */
+  transition: color 0.3s ease;
+}
+
+.field-wrapper:hover .field-icon {
+  color: #d32f2f; /* vermelho suave ao passar o mouse */
+}
