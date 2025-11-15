@@ -1,0 +1,30 @@
+/* Container geral do card */
+.restauro-card {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+/* Ajuste visual básico caso queira aplicar algo no wrapper externo */
+.restauro-card-wrapper {
+    width: 100%;
+}
+
+/* Apenas para garantir espaçamento e visualização clara */
+.restauro-card img {
+    border-radius: 8px;
+}
+
+/* Ajuste opcional para alinhar corretamente os conteúdos */
+.restauro-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Botões de horários */
+.restauro-card-times {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}

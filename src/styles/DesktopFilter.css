@@ -1,0 +1,39 @@
+/* Contêiner principal do filtro */
+.desktop-filter-container {
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Select básico para destacar no layout */
+.desktop-filter-container select,
+.desktop-filter-select {
+    min-width: 120px;
+}
+
+/* Contêiner da lista horizontal de chips */
+.desktop-filter-chip-scroll {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 4px;
+}
+
+/* Remover barra de rolagem */
+.desktop-filter-chip-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* Ajuste visual dos Chips */
+.desktop-filter-chip {
+    border-radius: 20px;
+}
+
+/* Botões de rolagem */
+.desktop-filter-arrow-btn {
+    padding: 4px;
+}

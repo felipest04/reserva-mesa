@@ -1,0 +1,10 @@
+/* Contêiner geral da lista de restaurantes */
+.restauro-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* espaçamento entre os cards */
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto; /* centraliza na página */
+    padding: 16px 0;
+}
