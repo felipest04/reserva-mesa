@@ -14,7 +14,7 @@ data class Avaliacao(
     val restaurante: Restaurante,
 
     @Column(nullable = false)
-    val nota: Int, // ex: 1 a 5
+    val nota: Int,
 
     val comentario: String? = null
 ) : EntidadeBase()
