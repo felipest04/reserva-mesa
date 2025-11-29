@@ -1,0 +1,12 @@
+.restaurant-list {
+    max-height: 80vh; /* altura fixa */
+    overflow-y: scroll; /* permite rolagem */
+    
+    /* Oculta scrollbar no Chrome, Edge e Safari */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+}
+
+.restaurant-list::-webkit-scrollbar {
+    display: none; /* Chrome, Safari e Edge */
+}
