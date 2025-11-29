@@ -1,6 +1,6 @@
 package com.restaurante.reservamesa.service
 
-import Reserva
+import com.restaurante.reservamesa.model.Reserva
 import com.restaurante.reservamesa.repository.ReservaRepository
 import org.springframework.stereotype.Service
 

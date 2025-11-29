@@ -6,7 +6,7 @@ import jakarta.persistence.Entity
 data class Restaurante(
     val nome: String,
     val endereco: String,
-    val latitude: Double,
-    val longitude: Double,
+    var latitude: Double,
+    var longitude: Double,
     val disponivel: Boolean
 ) : EntidadeBase()
