@@ -19,11 +19,11 @@ import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 
 // --- Página inicial que decide se vai para login ou home ---
-function Inicial() {
+/*function Inicial() {
   const { user } = useAuth();
-  return user ? <Navigate to="/home" replace /> : <Navigate to="/login" replace />;
+  return user ? <Navigate to="/home" replace /> : <Navigate to="/home" replace />;
 }
-
+*/
 // --- Layout que decide se mostra Header/Footer/Filtros ---
 function Layout() {
   const location = useLocation();
@@ -37,7 +37,7 @@ function Layout() {
 
       <Routes>
         {/* Página inicial redireciona */}
-        <Route path="/" element={<Inicial />} />
+        <Route path="/" element={<Home />} />
 
         {/* Páginas públicas */}
         <Route path="/login" element={<Login />} />
