@@ -1,0 +1,96 @@
+.home-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* conteúdo começa do topo */
+  align-items: center;
+  min-height: 80vh;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  background: url('/public/assets/fundoSite.png') center/cover no-repeat;
+  overflow: hidden;
+  margin: 0;
+  padding: 2rem 1rem; /* espaço superior e lateral */
+}
+
+.home-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 0;
+}
+
+.home-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px; /* limite da largura para telas grandes */
+}
+
+.home-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.home-subtitle {
+  margin-bottom: 2rem;
+  color: #ffffff;
+  font-size: 1.2rem;
+}
+
+/* Caixa de busca */
+.search-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  padding: 1.5rem;
+  border-radius: 16px;
+  margin: 0 auto 3rem auto; /* distância abaixo da busca para os cards */
+  width: 100%;
+  max-width: 900px;
+}
+
+.field-wrapper {
+  position: relative;
+  flex: 1 1 150px;
+  min-width: 150px;
+}
+
+.field-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+.field-wrapper:hover .field-icon {
+  color: #d32f2f;
+}
+
+.search-button {
+  background-color: #d32f2f !important;
+  color: #fff !important;
+  font-weight: bold;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+}
+
+/* Grid de cards */
+.restaurant-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px; /* espaço entre os cards */
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}

@@ -1,0 +1,74 @@
+/* Container centralizado na tela */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, #2196f3, #64b5f6);
+  font-family: Arial, sans-serif;
+}
+
+/* Caixa de login */
+.login-box {
+  background-color: #ffffff;
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Título */
+.login-box h2 {
+  margin-bottom: 20px;
+  color: #1976d2;
+}
+
+/* Inputs */
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Botão */
+.login-box button {
+  width: 100%;
+  padding: 12px;
+  background-color: #1976d2;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-box button:hover {
+  background-color: #115293;
+}
+
+/* Mensagem de erro */
+.login-box p {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* Link para cadastro */
+.login-box .link {
+  margin-top: 15px;
+}
+
+.login-box .link a {
+  color: #1976d2;
+  text-decoration: none;
+}
+
+.login-box .link a:hover {
+  text-decoration: underline;
+}

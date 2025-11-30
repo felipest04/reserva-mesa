@@ -1,0 +1,87 @@
+/* Card principal */
+.restauro-card {
+  display: flex;
+  width: 100%;       /* ocupa toda a largura do container pai */
+  max-width: none;   /* remove limite fixo para estender até o mapa */
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-bottom: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.63);
+}
+
+/* Imagem do card */
+.restauro-card-image {
+  width: 150px;
+  height: 300px;
+  object-fit: cover;
+}
+
+/* Wrapper do conteúdo */
+.restauro-card-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* ocupa todo o espaço restante até o mapa */
+  padding: 16px;
+  justify-content: space-between;
+}
+
+/* Conteúdo textual */
+.restauro-card-content {
+  padding: 0;
+  text-align: left;
+}
+
+/* Horários */
+.restauro-card-times {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.restauro-card-time-btn {
+  border-radius: 8px;
+  padding: 4px 12px;
+}
+
+/* Avaliação */
+.restauro-card-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.star-filled {
+  color: #ffb400;
+}
+
+.star-empty {
+  color: #d3d3d3;
+}
+
+.rating-text {
+  margin-left: 4px;
+}
+
+/* Botão de detalhes */
+.restauro-card-actions {
+  padding: 0;
+  margin-top: 8px;
+}
+
+/* Lista de cards com scroll independente */
+.restaurant-list {
+  max-height: 80vh;
+  overflow-y: auto; /* mantém scroll funcional */
+  padding-right: 8px; /* espaço interno para não colar no mapa */
+
+  /* Oculta scrollbar no Chrome, Edge e Safari */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.restaurant-list::-webkit-scrollbar {
+  display: none;
+}

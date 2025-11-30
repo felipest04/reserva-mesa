@@ -1,0 +1,60 @@
+/* Container geral */
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #e1e1e1;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border-radius: 12px;
+}
+
+/* Select principal */
+.filter-select {
+  border-radius: 20px !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  height: 36px;
+}
+
+/* Botões laterais de rolagem */
+.scroll-btn {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  transition: 0.3s ease;
+}
+
+.scroll-btn:hover {
+  background: rgba(240, 240, 240, 0.95);
+}
+
+/* Área rolável dos chips */
+.chips-scroll-area {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  flex: 1;
+  padding-bottom: 0.4rem;
+  scrollbar-width: none;
+}
+
+.chips-scroll-area::-webkit-scrollbar {
+  display: none;
+}
+
+/* Chips */
+.filter-chip {
+  border-radius: 20px !important;
+  border-color: #c9c9c9 !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  transition: 0.3s ease;
+}
+
+.filter-chip:hover {
+  background: #ffffff !important;
+  border-color: #d32f2f !important;
+  color: #d32f2f !important;
+}
