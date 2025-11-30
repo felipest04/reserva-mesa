@@ -7,12 +7,12 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import GroupIcon from "@mui/icons-material/Group";
 
 import { getRestaurantes } from "../../api/restauranteApi";
-
 import RestaurantCard from "../../components/RestaurantCard.jsx";
 import MapContainer from "../../components/MapContainer";
-//import { mockRestaurantes } from "../../mocks/MockRestaurantes.js";
-import "../../styles/HomeSection.css";
 
+// Mock de restaurantes para teste
+import { mockRestaurantes } from "../../mocks/MockRestaurantes.js"; // <--- REMOVER AO INTEGRAR COM API REAL
+import "../../styles/HomeSection.css";
 
 export default function HomeSection() {
     const [restaurants, setRestaurants] = useState([]);
@@ -20,7 +20,6 @@ export default function HomeSection() {
     const [query, setQuery] = useState("");
     const [showMap, setShowMap] = useState(false); // controla exibição do mapa e cards
 
-    // Inicializa com mock
     useEffect(() => {
         console.log("Home carregou, chamando API...");
 
@@ -29,7 +28,11 @@ export default function HomeSection() {
                 console.log("Resposta da API:", res);
                 setRestaurants(res.data);
             })
-            .catch(err => console.error("Erro na requisição:", err))
+            .catch(err => {
+                console.error("Erro na requisição, usando mock:", err);
+                // Se der erro na API, usamos o mock para teste
+                setRestaurants(mockRestaurantes); // <--- REMOVER AO INTEGRAR COM API REAL
+            })
             .finally(() => setLoading(false));
     }, []);
 

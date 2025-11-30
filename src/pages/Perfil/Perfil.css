@@ -1,0 +1,105 @@
+/* Perfil.css */
+.perfil-container {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f5f9ff; /* fundo leve azul */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif;
+}
+
+.perfil-container h2 {
+  text-align: center;
+  color: #0056b3; /* azul mais escuro */
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.perfil-abas {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.perfil-abas button {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #e1e9f8;
+  color: #0056b3;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.perfil-abas button:hover {
+  background-color: #c5d9f4;
+}
+
+.perfil-abas button:focus {
+  outline: none;
+  background-color: #0056b3;
+  color: white;
+}
+
+.perfil-conteudo {
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Componente de Informações */
+.perfil-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.perfil-section h3 {
+  text-align: center;
+  font-size: 22px;
+  color: #0056b3;
+  margin-bottom: 15px;
+}
+
+.perfil-section input {
+  padding: 12px 10px;
+  border-radius: 6px;
+  border: 1px solid #cfd8e4;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.perfil-section input:focus {
+  border-color: #0056b3;
+  outline: none;
+}
+
+.perfil-section button {
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #0056b3;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.perfil-section button:hover {
+  background-color: #003d80;
+}
+
+.perfil-section .mensagem {
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Adapte para Reservas, Comentários e Favoritos, mantendo mesma estrutura */

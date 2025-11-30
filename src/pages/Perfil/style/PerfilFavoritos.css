@@ -1,0 +1,35 @@
+.perfil-section {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.perfil-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.perfil-section li {
+  background-color: #d0eaff;
+  margin: 8px 0;
+  padding: 8px 12px;
+  border-radius: 4px;
+  display: flex;              /* para alinhar texto e botão */
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-refazer {
+  background-color: #ff6600;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.btn-refazer:hover {
+  background-color: #e65c00;
+}

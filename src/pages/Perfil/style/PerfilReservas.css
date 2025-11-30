@@ -1,0 +1,17 @@
+.perfil-section {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.perfil-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.perfil-section li {
+  background-color: #e0f0ff;
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 4px;
+}

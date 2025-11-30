@@ -13,4 +13,4 @@ export const getRestauranteById = (id) => api.get(`/restaurantes/${id}`);
 export const createReserva = (payload) => api.post("/reservas", payload);
 
 // GET /reservas/minhas
-export const getMinhasReservas = () => api.get("/reservas/minhas");
+export const getMinhasReservas = () => api.get("/reservas-minhas");

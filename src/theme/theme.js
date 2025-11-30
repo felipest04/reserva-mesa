@@ -13,6 +13,23 @@ const theme = createTheme({
   typography: {
     fontFamily: "Roboto, sans-serif",
   },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh", // garante que o body ocupe toda a altura
+          margin: 0,
+        },
+        "#root": {
+          display: "flex",
+          flexDirection: "column",
+          flex: 1, // faz o root ocupar o espaço disponível
+        },
+      },
+    },
+  },
 });
 
 export default theme;

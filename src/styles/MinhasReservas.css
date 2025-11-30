@@ -1,0 +1,71 @@
+/* Container principal da página */
+.minhas-reservas-container {
+  padding: 40px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Título da página */
+.minhas-reservas-container h5 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* Card de reserva */
+.reserva-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-bottom: 20px;
+}
+
+.reserva-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Título dentro do card */
+.reserva-card .MuiTypography-h6 {
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 5px;
+}
+
+/* Texto dentro do card */
+.reserva-card .MuiTypography-body1 {
+  color: #555;
+}
+
+/* Mensagem de "nenhuma reserva" */
+.sem-reservas {
+  text-align: center;
+  margin-top: 60px;
+  color: #777;
+  font-size: 1.1rem;
+}
+
+/* Container de loading */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+}
+
+.loading-container p {
+  margin-top: 15px;
+  color: #555;
+  font-size: 1rem;
+}
+
+/* Mensagem de erro */
+.erro-reservas {
+  text-align: center;
+  color: red;
+  font-size: 1rem;
+  margin-top: 40px;
+}

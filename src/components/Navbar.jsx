@@ -1,6 +1,7 @@
-// Header.jsx (substitua o atual por este)
+// Header.jsx
 import { AppBar, Toolbar, Typography, Box, TextField, IconButton, Button } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from "react-router-dom";
 
 export default function Header() {
@@ -77,6 +78,21 @@ export default function Header() {
         >
           Minhas Reservas
         </Button>
+
+        {/* Botão de Perfil */}
+        <IconButton
+          color="inherit"
+          component={Link}
+          to="/perfil"
+          sx={{
+            ml: 1,
+            bgcolor: 'transparent',
+            '&:hover': { bgcolor: 'rgba(255,255,255,0.08)' }
+          }}
+          aria-label="perfil"
+        >
+          <AccountCircleIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );

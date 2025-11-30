@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { CircularProgress, Box, Typography, Card, CardContent } from "@mui/material";
-import { getMinhasReservas } from "../services/api";
+import { getMinhasReservas } from "../../api/restauranteApi.jsx";
+
+ 
+
+
+
+import "../../styles/MinhasReservas.css";
 
 export default function MinhasReservas() {
   const [reservas, setReservas] = useState([]);
@@ -11,9 +17,9 @@ export default function MinhasReservas() {
     async function carregarReservas() {
       try {
         const response = await getMinhasReservas();
-        setReservas(response.data); // Axios => data
+        setReservas(response.data);
       } catch (error) {
-        setErro("Não foi possível carregar suas reservas.");
+        setErro("Você ainda não possui nenhuma reserva.");
       } finally {
         setLoading(false);
       }
@@ -22,10 +28,10 @@ export default function MinhasReservas() {
     carregarReservas();
   }, []);
 
-  // Carregando
+  // Loading
   if (loading) {
     return (
-      <Box sx={{ textAlign: "center", mt: 4 }}>
+      <Box className="loading-container">
         <CircularProgress />
         <Typography sx={{ mt: 2 }}>Carregando reservas...</Typography>
       </Box>
@@ -35,35 +41,32 @@ export default function MinhasReservas() {
   // Erro
   if (erro) {
     return (
-      <Typography sx={{ color: "red", textAlign: "center", mt: 4 }}>
-        {erro}
-      </Typography>
+      <Box className="erro-reservas">
+        <Typography>{erro}</Typography>
+      </Box>
     );
   }
 
   // Nenhuma reserva
   if (reservas.length === 0) {
     return (
-      <Typography sx={{ textAlign: "center", mt: 4, fontSize: 18 }}>
-        Você ainda não possui reservas.
-      </Typography>
+      <Box className="sem-reservas">
+        <Typography variant="h5">Você ainda não possui reservas</Typography>
+        <Typography variant="body1" color="text.secondary">
+          Assim que fizer uma reserva, ela aparecerá aqui.
+        </Typography>
+      </Box>
     );
   }
 
   // Exibir reservas
   return (
-    <Box sx={{ padding: 3 }}>
-      <Typography variant="h5" sx={{ mb: 3, fontWeight: 700 }}>
-        Minhas Reservas
-      </Typography>
-
+    <Box className="minhas-reservas-container">
+      <Typography variant="h5">Minhas Reservas</Typography>
       {reservas.map((reserva) => (
-        <Card key={reserva.id} sx={{ mb: 2, borderRadius: 2, boxShadow: 2 }}>
+        <Card key={reserva.id} className="reserva-card">
           <CardContent>
-            <Typography variant="h6" sx={{ fontWeight: 600 }}>
-              {reserva.restaurante?.nome}
-            </Typography>
-
+            <Typography variant="h6">{reserva.restaurante?.nome}</Typography>
             <Typography>Data: {reserva.dataReserva}</Typography>
             <Typography>Hora: {reserva.horario}</Typography>
             <Typography>Pessoas: {reserva.quantidadePessoas}</Typography>

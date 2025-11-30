@@ -14,9 +14,13 @@ import ReservaConfirmada from './pages/Restaurante/ReservaConfirmada.jsx';
 
 import Cadastro from './pages/Cadastro.jsx';
 import Login from './pages/Login.jsx';
+import Perfil from './pages/Perfil/Perfil.jsx';
+
 
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
+import MinhasReservas from "./pages/Reservas/MinhasReservas";
+
 
 // --- Página inicial que decide se vai para login ou home ---
 /*function Inicial() {
@@ -42,6 +46,7 @@ function Layout() {
         {/* Páginas públicas */}
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
+        <Route path='/minhas-reservas' element={<MinhasReservas />} />
 
         {/* Páginas protegidas */}
         <Route
@@ -62,6 +67,15 @@ function Layout() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/perfil"
+          element={
+            <PrivateRoute>
+              <Perfil />
+            </PrivateRoute>
+          }
+        />
+
         <Route
           path="/restaurantes/:id/reservar"
           element={
