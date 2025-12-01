@@ -13,10 +13,9 @@ class UsuarioService(private val repository: UsuarioRepository) {
         RuntimeException("Usuário não encontrado com ID $id")
     }
 
-    fun buscarPorEmail(email: String) = repository.findByEmail(email)
-        ?: throw RuntimeException("Usuário não encontrado com email $email")
-
-    fun buscarPorNome(nome: String) = repository.findByNomeContainingIgnoreCase(nome)
+    fun autenticar(email: String, senha: String): Usuario? {
+        return repository.findByEmailAndSenha(email, senha)
+    }
 
     fun salvar(usuario: Usuario) = repository.save(usuario)
 

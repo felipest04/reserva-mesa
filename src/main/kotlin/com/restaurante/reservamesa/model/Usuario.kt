@@ -15,6 +15,6 @@ data class Usuario(
     val senha: String,
 
     @Column(nullable = false)
-    val telefone: String
+    val telefone: String? = null
 
 ) : EntidadeBase()

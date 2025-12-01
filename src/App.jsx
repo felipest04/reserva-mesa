@@ -1,10 +1,9 @@
-import { ThemeProvider, CssBaseline } from '@mui/material';
+import {ThemeProvider, CssBaseline} from '@mui/material';
 import theme from "./theme/theme.js";
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import {BrowserRouter, Routes, Route, useLocation, Navigate} from 'react-router-dom';
 
 import Header from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
-import DesktopFilter from './components/DesktopFilter.jsx';
 
 import Home from './pages/Home/HomeSection.jsx';
 import MainPage from './pages/Main/mainPage.jsx';
@@ -15,100 +14,107 @@ import ReservaConfirmada from './pages/Restaurante/ReservaConfirmada.jsx';
 import Cadastro from './pages/Cadastro.jsx';
 import Login from './pages/Login.jsx';
 import Perfil from './pages/Perfil/Perfil.jsx';
-
-
-import { AuthProvider, useAuth } from './context/AuthContext.jsx';
-import PrivateRoute from './components/PrivateRoute.jsx';
 import MinhasReservas from "./pages/Reservas/MinhasReservas";
 
+import {AuthProvider, useAuth} from './context/AuthContext.jsx';
+import PrivateRoute from './components/PrivateRoute.jsx';
 
-// --- Página inicial que decide se vai para login ou home ---
-/*function Inicial() {
-  const { user } = useAuth();
-  return user ? <Navigate to="/home" replace /> : <Navigate to="/home" replace />;
-}
-*/
 // --- Layout que decide se mostra Header/Footer/Filtros ---
 function Layout() {
-  const location = useLocation();
-  const publicPaths = ["/login", "/cadastro"];
-  const isPublic = publicPaths.includes(location.pathname);
+    const location = useLocation();
+    const publicPaths = ["/login", "/cadastro"];
+    const isPublic = publicPaths.includes(location.pathname);
 
-  return (
-    <>
-      {!isPublic && <Header />}
-      {!isPublic && <DesktopFilter />}
+    return (
+        <>
+            {!isPublic && <Header/>}
 
-      <Routes>
-        {/* Página inicial redireciona */}
-        <Route path="/" element={<Home />} />
+            <Routes>
+                {/* Página inicial: redireciona dependendo do login */}
+                <Route
+                    path="/"
+                    element={
+                        <RequireAuthRedirect>
+                            <Home/>
+                        </RequireAuthRedirect>
+                    }
+                />
 
-        {/* Páginas públicas */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/cadastro" element={<Cadastro />} />
-        <Route path='/minhas-reservas' element={<MinhasReservas />} />
+                {/* Páginas públicas */}
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/cadastro" element={<Cadastro/>}/>
 
-        {/* Páginas protegidas */}
-        <Route
-          path="/home"
-          element={
-            <PrivateRoute>
-              <Home />
-            </PrivateRoute>
-          }
-        />
-        <Route path="/main" element={<MainPage />} />
+                {/* Rotas protegidas */}
+                <Route
+                    path="/home"
+                    element={
+                        <PrivateRoute>
+                            <Home/>
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/restaurantes/:id"
+                    element={
+                        <PrivateRoute>
+                            <RestauranteDetalhes/>
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/restaurantes/:id/reservar"
+                    element={
+                        <PrivateRoute>
+                            <FazerReserva/>
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/restaurantes/:id/reserva-confirmada"
+                    element={
+                        <PrivateRoute>
+                            <ReservaConfirmada/>
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/perfil"
+                    element={
+                        <PrivateRoute>
+                            <Perfil/>
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/minhas-reservas"
+                    element={
+                        <PrivateRoute>
+                            <MinhasReservas/>
+                        </PrivateRoute>
+                    }
+                />
+                <Route path="/main" element={<MainPage/>}/>
+            </Routes>
 
-        <Route
-          path="/restaurantes/:id"
-          element={
-            <PrivateRoute>
-              <RestauranteDetalhes />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/perfil"
-          element={
-            <PrivateRoute>
-              <Perfil />
-            </PrivateRoute>
-          }
-        />
-
-        <Route
-          path="/restaurantes/:id/reservar"
-          element={
-            <PrivateRoute>
-              <FazerReserva />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/restaurantes/:id/reserva-confirmada"
-          element={
-            <PrivateRoute>
-              <ReservaConfirmada />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
-
-      {!isPublic && <Footer />}
-    </>
-  );
+            {!isPublic && <Footer/>}
+        </>
+    );
 }
 
-// --- Componente principal do App ---
+function RequireAuthRedirect({children}) {
+    const {user} = useAuth();
+    return user ? children : <Navigate to="/login" replace/>;
+}
+
 export default function App() {
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <AuthProvider>
-        <BrowserRouter>
-          <Layout />
-        </BrowserRouter>
-      </AuthProvider>
-    </ThemeProvider>
-  );
+    return (
+        <ThemeProvider theme={theme}>
+            <CssBaseline/>
+            <AuthProvider>
+                <BrowserRouter>
+                    <Layout/>
+                </BrowserRouter>
+            </AuthProvider>
+        </ThemeProvider>
+    );
 }

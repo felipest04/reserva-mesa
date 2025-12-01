@@ -1,53 +1,86 @@
-// src/features/HomeSection.jsx
-import { useEffect, useState } from "react";
-import { Box, Typography, TextField, Button, MenuItem, CircularProgress } from "@mui/material";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+import {useEffect, useState, useMemo} from "react";
+import {Box, Typography, TextField, Button, MenuItem, CircularProgress} from "@mui/material";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import GroupIcon from "@mui/icons-material/Group";
+import SearchIcon from '@mui/icons-material/Search';
 
-import { getRestaurantes } from "../../api/restauranteApi";
+import {getRestaurantes} from "../../api/restauranteApi.jsx";
 import RestaurantCard from "../../components/RestaurantCard.jsx";
-import MapContainer from "../../components/MapContainer";
 
-// Mock de restaurantes para teste
-import { mockRestaurantes } from "../../mocks/MockRestaurantes.js"; // <--- REMOVER AO INTEGRAR COM API REAL
 import "../../styles/HomeSection.css";
 
 export default function HomeSection() {
     const [restaurants, setRestaurants] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [query, setQuery] = useState("");
-    const [showMap, setShowMap] = useState(false); // controla exibição do mapa e cards
+    const [searchQuery, setSearchQuery] = useState("");
+
+    // showMap não é mais necessário
+    const [showMap, setShowMap] = useState(false);
+
+    // Estados para os filtros
+    const today = new Date().toISOString().split('T')[0];
+    const [selectedDate, setSelectedDate] = useState(today);
+    const [selectedTime, setSelectedTime] = useState("");
+    const [partySize, setPartySize] = useState(2);
+
 
     useEffect(() => {
-        console.log("Home carregou, chamando API...");
-
         getRestaurantes()
             .then(res => {
-                console.log("Resposta da API:", res);
                 setRestaurants(res.data);
             })
             .catch(err => {
-                console.error("Erro na requisição, usando mock:", err);
-                // Se der erro na API, usamos o mock para teste
-                setRestaurants(mockRestaurantes); // <--- REMOVER AO INTEGRAR COM API REAL
+                console.error("Erro na requisição:", err);
             })
             .finally(() => setLoading(false));
     }, []);
 
-    const filtered = (restaurants || []).filter(r =>
-        r.name.toLowerCase().includes(query.toLowerCase())
-    );
+    const availableTimes = useMemo(() => {
+        const times = new Set();
+        restaurants.forEach(r => {
+            try {
+                if (r.horarios_funcionamento) {
+                    const parsedTimes = JSON.parse(r.horarios_funcionamento);
+                    parsedTimes.forEach(time => times.add(time));
+                }
+            } catch (e) {
+                console.error("Erro ao parsear horarios_funcionamento:", r.horarios_funcionamento, e);
+            }
+        });
+        // Ordena os horários para exibição
+        return Array.from(times).sort();
+    }, [restaurants]);
 
-    const handleSearch = () => {
-        setShowMap(true); // mostra mapa e cards após a busca
-    };
+    // Lógica de filtragem
+    const filtered = useMemo(() => {
+        return restaurants
+            .filter(r =>
+                (r.nome || "")
+                    .toLowerCase()
+                    .includes((searchQuery || "").toLowerCase())
+            )
+            .filter(r => {
+                if (!selectedTime) return true;
+
+                try {
+                    const availableSlots = JSON.parse(r.horarios_funcionamento || "[]");
+                    return availableSlots.includes(selectedTime);
+                } catch (e) {
+                    return false;
+                }
+            });
+    }, [restaurants, searchQuery, selectedTime]);
+
+
+    const handleSearchClick = () => {
+        setShowMap(true);
+    }
+
 
     return (
         <Box className="home-container">
             <Box className="home-content">
-                {/* Texto da home */}
                 <Typography variant="h3" className="home-title">
                     Procurando uma reserva rápida?
                 </Typography>
@@ -57,16 +90,18 @@ export default function HomeSection() {
 
                 {/* Caixa de busca */}
                 <Box className="search-box">
+
                     <Box className="field-wrapper">
                         <TextField
-                            label="Local"
+                            label="Restaurante"
+                            type="search"
                             variant="outlined"
                             size="small"
                             fullWidth
-                            value={query}
-                            onChange={e => setQuery(e.target.value)}
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
                         />
-                        <LocationOnIcon className="field-icon" />
+                        <SearchIcon className="field-icon"/>
                     </Box>
 
                     <Box className="field-wrapper">
@@ -76,21 +111,31 @@ export default function HomeSection() {
                             variant="outlined"
                             size="small"
                             fullWidth
-                            InputLabelProps={{ shrink: true }}
+                            InputLabelProps={{shrink: true}}
+                            value={selectedDate}
+                            onChange={(e) => setSelectedDate(e.target.value)}
                         />
-                        <CalendarMonthIcon className="field-icon" />
+                        <CalendarMonthIcon className="field-icon"/>
                     </Box>
 
                     <Box className="field-wrapper">
                         <TextField
                             label="Hora"
-                            type="time"
+                            select
                             variant="outlined"
                             size="small"
                             fullWidth
-                            InputLabelProps={{ shrink: true }}
-                        />
-                        <AccessTimeIcon className="field-icon" />
+                            value={selectedTime}
+                            onChange={(e) => setSelectedTime(e.target.value)}
+                        >
+                            <MenuItem value="">Qualquer hora</MenuItem>
+                            {availableTimes.map(time => (
+                                <MenuItem key={time} value={time}>
+                                    {time}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                        <AccessTimeIcon className="field-icon"/>
                     </Box>
 
                     <Box className="field-wrapper">
@@ -100,7 +145,8 @@ export default function HomeSection() {
                             variant="outlined"
                             size="small"
                             fullWidth
-                            defaultValue={2}
+                            value={partySize}
+                            onChange={(e) => setPartySize(parseInt(e.target.value))}
                         >
                             {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
                                 <MenuItem key={n} value={n}>
@@ -108,64 +154,56 @@ export default function HomeSection() {
                                 </MenuItem>
                             ))}
                         </TextField>
-                        <GroupIcon className="field-icon" />
+                        <GroupIcon className="field-icon"/>
                     </Box>
 
                     <Button
                         variant="contained"
                         color="primary"
                         className="search-button"
-                        onClick={handleSearch}
+                        onClick={handleSearchClick}
                     >
-                        Buscar
+                        Buscar ({filtered.length})
                     </Button>
                 </Box>
 
-                {/* Layout principal */}
                 {loading ? (
-                    <Box sx={{ display: "flex", justifyContent: "center", mt: 8 }}>
-                        <CircularProgress />
+                    <Box sx={{display: "flex", justifyContent: "center", mt: 8}}>
+                        <CircularProgress/>
                     </Box>
                 ) : (
                     <Box
                         sx={{
                             display: "flex",
-                            flexDirection: { xs: "column", md: "row" },
+                            flexDirection: {xs: "column", md: "row"},
                             gap: 2,
                             mt: 3,
                             alignItems: "flex-start",
-                            height: "80vh",
                         }}
                     >
-                        {/* Lista de restaurantes e mapa só aparecem após buscar */}
-                        {showMap && (
-                            <>
-                                <Box
-                                    className="restaurant-list"
-                                    sx={{
-                                        flex: 1,
-                                        overflowY: "auto",
-                                        pr: 2,
-                                    }}
-                                >
-                                    {filtered.map(r => (
-                                        <RestaurantCard key={r.id} restaurant={r} />
-                                    ))}
-                                </Box>
+                        <Box
+                            className="restaurant-list"
+                            sx={{
+                                flex: 1,
+                                overflowY: "auto",
+                                pr: 2,
+                                width: '100%'
+                            }}
+                        >
+                            <Typography variant="h6" gutterBottom>
+                                {showMap ? `Resultados da busca (${filtered.length})` : "Restaurantes Populares"}
+                            </Typography>
+                            {filtered.length > 0 ? (
+                                filtered.map(r => (
+                                    <RestaurantCard key={r.id} restaurant={r}/>
+                                ))
+                            ) : (
+                                <Typography color="textSecondary" sx={{mt: 2}}>
+                                    Nenhum restaurante encontrado com os filtros selecionados.
+                                </Typography>
+                            )}
+                        </Box>
 
-                                <Box
-                                    className="map-wrapper"
-                                    sx={{
-                                        width: { xs: "100%", md: "400px" },
-                                        position: { xs: "relative", md: "sticky" },
-                                        top: { md: "80px" },
-                                        height: "100%",
-                                    }}
-                                >
-                                    <MapContainer show={showMap} restaurants={filtered} />
-                                </Box>
-                            </>
-                        )}
                     </Box>
                 )}
             </Box>

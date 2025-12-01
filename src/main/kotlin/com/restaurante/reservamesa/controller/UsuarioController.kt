@@ -1,5 +1,6 @@
 package com.restaurante.reservamesa.controller
 
+import com.restaurante.reservamesa.dto.CredenciaisDTO
 import com.restaurante.reservamesa.model.Usuario
 import com.restaurante.reservamesa.service.UsuarioService
 import org.springframework.http.ResponseEntity
@@ -17,6 +18,13 @@ class UsuarioController(private val service: UsuarioService) {
 
     @PostMapping
     fun salvar(@RequestBody usuario: Usuario) = ResponseEntity.ok(service.salvar(usuario))
+
+    @PostMapping("/login")
+    fun login(@RequestBody credenciais: CredenciaisDTO): ResponseEntity<Usuario> {
+        val usuario = service.autenticar(credenciais.email, credenciais.senha)
+            ?: return ResponseEntity.status(401).build()
+        return ResponseEntity.ok(usuario)
+    }
 
     @PutMapping("/{id}")
     fun atualizar(@PathVariable id: Long, @RequestBody usuario: Usuario) =
